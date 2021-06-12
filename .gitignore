@@ -7,3 +7,5 @@ DBTests
 *.linq
 OrcaMDF.sln.cache
 *.dll
+packages/*
+.idea/*
