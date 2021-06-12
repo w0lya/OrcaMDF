@@ -20,6 +20,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrcaMDF.Framework", "src\Or
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrcaMDF.Framework.Tests", "src\OrcaMDF.Framework.Tests\OrcaMDF.Framework.Tests.csproj", "{8D1AA5C3-74C2-4041-8F1D-303376D81584}"
 EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "MdfToCsv", "MdfToCsv\MdfToCsv.fsproj", "{FC8505C2-A038-4EDF-910E-865B6ADD6C40}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -100,6 +102,18 @@ Global
 		{8D1AA5C3-74C2-4041-8F1D-303376D81584}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{8D1AA5C3-74C2-4041-8F1D-303376D81584}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{8D1AA5C3-74C2-4041-8F1D-303376D81584}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Debug|x86.Build.0 = Debug|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Release|x86.ActiveCfg = Release|Any CPU
+		{FC8505C2-A038-4EDF-910E-865B6ADD6C40}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

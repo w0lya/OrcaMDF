@@ -27,6 +27,9 @@ namespace OrcaMDF.Core.MetaData
 			TypeString = type;
 			IsNullable = nullable;
 
+			string[] parts;
+			int precision;
+
 			switch (type.Split('(')[0])
 			{
 				case "bigint":
@@ -50,18 +53,36 @@ namespace OrcaMDF.Core.MetaData
 				case "datetime":
 					Type = ColumnType.DateTime;
 					break;
-
-				case "decimal":
-					Type = ColumnType.Decimal;
-
-					var parts = type.Split('(')[1].Split(')')[0].Split(',');
-					Precision = Convert.ToByte(parts[0].Trim());
-					Scale = Convert.ToByte(parts[1].Trim());
+				case "numeric": 
+					Type = ColumnType.Numeric;
+					parts = type.Split('(')[1].Split(')')[0].Split(',');
+					precision = Convert.ToInt32(parts[0].Trim())*2; // TODO: figure out why e.g. numeric(18,0) is parsed as numeric (9)???
+					Precision = Convert.ToByte(precision);
+					Scale = Scale = parts.Length > 1 ? Convert.ToByte(parts[1].Trim()) : (byte)0;
 
 					if (parts.Length == 3)
 						IsVariableLength = Convert.ToBoolean(parts[2]);
 					break;
-				
+				case "decimal":
+					Type = ColumnType.Decimal;
+					parts = type.Split('(')[1].Split(')')[0].Split(',');
+					precision = Convert.ToInt32(parts[0].Trim());
+					Precision = Convert.ToByte(precision);
+					Scale = Scale = parts.Length > 1 ? Convert.ToByte(parts[1].Trim()) : (byte)0;
+
+					if (parts.Length == 3)
+						IsVariableLength = Convert.ToBoolean(parts[2]);
+					break;
+				case "float":
+					Type = ColumnType.Float;
+					parts = type.Split('(')[1].Split(')')[0].Split(',');
+					precision = Convert.ToInt32(parts[0].Trim());
+					Precision = Convert.ToByte(precision);
+					Scale = Scale = parts.Length > 1 ? Convert.ToByte(parts[1].Trim()) : (byte)0;
+
+					if (parts.Length == 3)
+						IsVariableLength = Convert.ToBoolean(parts[2]);
+					break;
 				case "image":
 					Type = ColumnType.Image;
 					IsVariableLength = true;

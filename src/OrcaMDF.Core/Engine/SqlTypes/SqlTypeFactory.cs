@@ -28,6 +28,12 @@ namespace OrcaMDF.Core.Engine.SqlTypes
 				case ColumnType.Decimal:
 					return new SqlDecimal(column.Precision, column.Scale, compression);
 				
+				case ColumnType.Numeric:
+					return new SqlNumeric(column.Precision, column.Scale, compression);
+				
+				case ColumnType.Float:
+					return new SqlFloat(column.Precision, column.Scale, compression);
+				
 				case ColumnType.Image:
 					return new SqlImage(compression);
 
