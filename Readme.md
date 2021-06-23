@@ -1,3 +1,9 @@
+This fork has a couple of minor changes compared to the original:
+- Upgraded the lib projects to .NET 4.6.1 for new (TODO: move to .net50)
+- Enabled handling of numeric and floating point types
+- Added a console app for extracting a defined set of data from MDF and saving as CSV.
+------
+
 This is the repository for the C# MDF file parser that I originally demoed at Miracle Open World 2011.
 
 Please note that this code is highly experimental. Lots of stuff and special cases are either not supported or outright ignored at this point. While the code is under development, it's current state is purely prototypical.
