@@ -1,5 +1,5 @@
 This fork has a couple of minor changes compared to the original:
-- Upgraded the lib projects to .NET 4.6.1 for new (TODO: move to .net50)
+- Upgraded the lib projects to .NET 4.6.1. TODO: move to .net50
 - Enabled handling of numeric and floating point types
 - Added a console app for extracting a defined set of data from MDF and saving as CSV.
 ------
