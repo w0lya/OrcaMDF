@@ -81,7 +81,7 @@ let main argv =
                          |> Seq.choose id                          
                          |> Seq.filter(fun  (_, _, status) ->                            
                              status = "Success")
-                         |> Seq.map(fun (fileName, _,_) -> fileName)
+                         |> Seq.map(fun (filePath, _,_) -> Path.GetFileName(filePath))
     
     let filesToProcess = filesFiltered
                          |> Array.filter (fun f ->
@@ -102,7 +102,8 @@ let main argv =
                          |> List.ofSeq
                          |> Seq.filter(fun t ->
                              tableNamesToExport |> Array.contains t.Name)
-                         |> Seq.map(fun t ->                             
+                         |> Seq.map(fun t ->
+                             // TODO Seq.chunkBySize and write to file right here
                              let rows = scanner.ScanTable(t.Name)
                              let firstRow = rows |> Seq.head
                              let columnNames = firstRow.Columns                                               
@@ -115,13 +116,49 @@ let main argv =
                                                       |> Array.concat
                                                    colsToSelect |> Array.contains c)
                                                |> Array.ofSeq
-                             // Get data of interest
-                             let dataRows = rows
+                                               
+                             // Get data of interest  
+                             let dataRows =
+                                if t.Name = "DataLog"   // Hardcoded. Specific to files I'm working with.
+                                then
+                                    printfn "trim mode"
+                                    rows
+                                    |> Seq.chunkBySize 1000
+                                    |> Seq.map (fun chunk ->
+                                        let result = 
+                                            chunk
+                                            |> Seq.groupBy(fun row ->
+                                                // Hardcoded. Specific to files I'm working with.
+                                                let agg = row.["LoopID"]
+                                                agg)
+                                            |> Seq.map(fun (agg, rows) ->
+                                                // Hardcoded. Specific to files I'm working with.                                                    
+                                                let cutByDate =
+                                                    rows
+                                                    |> Seq.groupBy (fun row ->
+                                                        let dt = DateTime.Parse(row.["Datetime"].ToString())
+                                                        let roundedToMin = DateTime(dt.Year, dt.Month, dt.Day, dt.Hour, dt.Minute, 0)
+                                                        roundedToMin
+                                                        )
+                                                    |> Seq.map (fun (dt, rows) -> rows |> Seq.head)
+                                                cutByDate)
+                                            |> Seq.concat
                                             |> Seq.map (fun row ->
                                                 columnNames
                                                 |> Array.map(fun col ->
                                                     let value = row.[col]
-                                                    if value = null then "NULL" else value.ToString()))                                            
+                                                    if value = null then "NULL" else value.ToString())
+                                        )
+                                        result)
+                                    |> Seq.concat
+                                else
+                                    printfn "regular mode"
+                                    rows |> Seq.map (fun row ->
+                                        columnNames
+                                            |> Array.map(fun col ->
+                                                let value = row.[col]
+                                                if value = null then "NULL" else value.ToString())
+                                    )
                              (t.Name, (columnNames, dataRows)))
                          |> Map.ofSeq
             
